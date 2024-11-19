@@ -35,7 +35,7 @@ class ImageModelViewSet(viewsets.ModelViewSet):
     filter_backends = [DjangoFilterBackend, SearchFilter, OrderingFilter]
     filterset_fields = ['site_name', 'title', 'tags', 'category']
     search_fields = ['site_name', 'title', 'midjerny_id', 'category']
-    pagination_class = DefaultPagination
+    pagination_class = CustomPageNumberPagination
 
     def perform_create(self, serializer):
         profile = Profile.objects.get(user=self.request.user)
@@ -61,7 +61,7 @@ class MidjernyImageEditBodyModelViewSet(viewsets.ModelViewSet):
     permission_classes = [IsGetOnly | IsOwnerOrSupervisor]
     queryset = MidjernyImage.objects.all()
     serializer_class = MidjernyImageBodySerializer
-    pagination_class = DefaultPagination
+    pagination_class = CustomPageNumberPagination
     filter_backends = [DjangoFilterBackend, SearchFilter, OrderingFilter]
     filterset_fields = ['site_name', 'category', 'tags', 'publisher']
     search_fields = ['title', 'description', 'midjerny_id',
@@ -97,7 +97,7 @@ class MidjernyImageEditPictureModelViewSet(viewsets.ModelViewSet):
     permission_classes = [IsGetOnly | IsOwnerOrSupervisor]
     queryset = MidjernyImage.objects.all()
     serializer_class = MidjernyImagePictureSerializer
-    pagination_class = DefaultPagination
+    pagination_class = CustomPageNumberPagination
     filter_backends = [DjangoFilterBackend, SearchFilter, OrderingFilter]
     filterset_fields = ['site_name', 'publisher', 'category']
     search_fields = ['title', 'midjerny_id', 'publisher__user__username']
@@ -154,7 +154,7 @@ class UploadImagesAndExcelViewSet(viewsets.ModelViewSet):
     queryset = MidjernyImage.objects.all()
     serializer_class = UploadImagesAndExcelSerializer
     parser_classes = (MultiPartParser,)
-    pagination_class = DefaultPagination
+    pagination_class = CustomPageNumberPagination
 
     def create(self, request, *args, **kwargs):
         excel_file = request.FILES.get('file')
@@ -270,14 +270,14 @@ class LikeModelViewSet(viewsets.ModelViewSet):
     filter_backends = [DjangoFilterBackend, SearchFilter, OrderingFilter]
     filterset_fields = ['user', 'picture_post']
     search_fields = ['user__user__username', 'picture_post__title',]
-    pagination_class = DefaultPagination
+    pagination_class = CustomPageNumberPagination
 
 
 class DisLikeModelViewSet(viewsets.ModelViewSet):
     permission_classes = [IsAuthenticated]
     serializer_class = DisLikeSerializer
     queryset = Dislike.objects.all()
-    pagination_class = DefaultPagination
+    pagination_class = CustomPageNumberPagination
     filter_backends = [DjangoFilterBackend, SearchFilter, OrderingFilter]
     filterset_fields = ['user', 'picture_post']
     search_fields = ['user__user__username', 'picture_post__title',]
@@ -287,7 +287,7 @@ class SaveModelViewSet(viewsets.ModelViewSet):
     permission_classes = [IsAuthenticated]
     serializer_class = SaveSerializer
     queryset = Save.objects.all()
-    pagination_class = DefaultPagination
+    pagination_class = CustomPageNumberPagination
     filter_backends = [DjangoFilterBackend, SearchFilter, OrderingFilter]
     filterset_fields = ['user', 'picture_post']
     search_fields = ['user__user__username', 'picture_post__title',]

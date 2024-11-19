@@ -42,7 +42,7 @@ INSTALLED_APPS = [
     
     'accounts',
     'gallery',
-    #'Webpagestructure', 
+    'Webpagestructure', 
 
     'django_summernote',
     'rest_framework',

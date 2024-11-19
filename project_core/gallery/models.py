@@ -1,7 +1,6 @@
 from django.db import models
 from django.utils.translation import gettext_lazy as _
 from django.contrib.auth.models import User
-from django_jalali.db import models as jmodels
 from django_resized import ResizedImageField
 from accounts.models import Profile
 from Webpagestructure.models import SiteStructure
@@ -22,8 +21,8 @@ class MidjernyImage(models.Model):
     size_picture = models.ManyToManyField("Size_picture", related_name='posts_size_picture')
     counted_likes = models.IntegerField(default=0)  
     counted_save = models.IntegerField(default=0)
-    created_date = jmodels.jDateTimeField(auto_now_add=True)
-    updated_date = jmodels.jDateTimeField(auto_now=True)
+    created_date = models.DateTimeField(auto_now_add=True)
+    updated_date = models.DateTimeField(auto_now=True)
    
     def __str__(self):
         return self.title
@@ -43,8 +42,8 @@ class Category(models.Model):
 class Tag(models.Model):
     name = models.CharField (max_length=30,  unique=True)
     user_adder = models.ForeignKey('accounts.Profile',  on_delete=models.SET_NULL, null=True, blank=True, related_name='user_adder',)
-    created_date = jmodels.jDateTimeField(auto_now_add=True, null=True, blank=True)
-    updated_date = jmodels.jDateTimeField(auto_now=True, null=True, blank=True)
+    created_date = models.DateTimeField(auto_now_add=True, null=True, blank=True)
+    updated_date = models.DateTimeField(auto_now=True, null=True, blank=True)
 
     def __str__(self):
         return self.name
@@ -88,7 +87,7 @@ class Dislike(models.Model):
             models.UniqueConstraint(fields=['user', 'picture_post'], name='unique_dislike')
         ]
        
-       
+
 class Save(models.Model):
     user = models.ForeignKey('accounts.Profile', on_delete=models.CASCADE)
     picture_post = models.ForeignKey(MidjernyImage, on_delete=models.CASCADE)
