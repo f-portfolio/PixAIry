@@ -6,6 +6,6 @@ class GalleryConfig(AppConfig):
     name = 'gallery'
     
     def ready(self):
-        import gallery.api.v1.signal
+        import project_core.gallery.api.v1.signals
 
 

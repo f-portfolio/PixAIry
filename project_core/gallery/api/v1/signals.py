@@ -45,3 +45,13 @@ def decrement_counted_save(sender, instance, **kwargs):
     picture_post = instance.picture_post
     picture_post.counted_save -= 1
     picture_post.save()
+
+
+
+@receiver(post_save, sender=Share)
+def increment_counted_share(sender, instance, created, **kwargs):
+    if created:
+        picture_post = instance.picture_post
+        picture_post.counted_share += 1
+        picture_post.save()
+
