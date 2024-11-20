@@ -87,7 +87,6 @@ class Dislike(models.Model):
             models.UniqueConstraint(fields=['user', 'picture_post'], name='unique_dislike')
         ]
        
-
 class Save(models.Model):
     user = models.ForeignKey('accounts.Profile', on_delete=models.CASCADE)
     picture_post = models.ForeignKey(MidjernyImage, on_delete=models.CASCADE)
@@ -99,3 +98,14 @@ class Save(models.Model):
         constraints = [
             models.UniqueConstraint(fields=['user', 'picture_post'], name='unique_save')
         ]
+
+class Share(models.Model):
+    user = models.ForeignKey('accounts.Profile', on_delete=models.CASCADE)
+    picture_post = models.ForeignKey(MidjernyImage, on_delete=models.CASCADE)
+    timestamp = models.DateTimeField(auto_now_add=True)  
+
+    def __str__(self):
+        return f'{self.user.user.username} shared {self.picture_post.title}'
+    
+    class Meta:
+        ordering = ['-timestamp']  

@@ -292,3 +292,13 @@ class SaveModelViewSet(viewsets.ModelViewSet):
     filterset_fields = ['user', 'picture_post']
     search_fields = ['user__user__username', 'picture_post__title',]
     
+
+
+class ShareModelViewSet(viewsets.ModelViewSet):
+    permission_classes = [IsAuthenticated]
+    serializer_class = ShareSerializer
+    queryset = Share.objects.all()
+    pagination_class = CustomPageNumberPagination
+    filter_backends = [DjangoFilterBackend, SearchFilter, OrderingFilter]
+    filterset_fields = ['user', 'picture_post']
+    search_fields = ['user__user__username', 'picture_post__title',]

@@ -25,20 +25,11 @@ urlpatterns = [
     path('dislike_picture/', DisLikeModelViewSet.as_view({'get':'list', 'post':'create'}), name='dislike-picture'),
     path('dislike_picture/<int:pk>/', DisLikeModelViewSet.as_view({'get':'retrieve'}), name="dislike-picture"),
 
-
     path('save_picture/',SaveModelViewSet.as_view({'get': 'list', 'post': 'create'}), name='save-picture'),
     path('save_picture/<int:pk>/', SaveModelViewSet.as_view({'get': 'retrieve', 'delete': 'destroy'}), name="save-picture"),
 
+    path('share_picture/', ShareModelViewSet.as_view({'get':'list', 'post':'create'}), name='share-picture'),
+    path('share_picture/<int:pk>/', ShareModelViewSet.as_view({'get':'retrieve'}), name="share-picture"),
+
 ]
 
-
-# from django.urls import path, include
-# from rest_framework.routers import DefaultRouter
-# from .views import UploadImagesAndExcelViewSet
-
-# router = DefaultRouter()
-# router.register(r'upload', UploadImagesAndExcelViewSet, basename='upload')
-
-# urlpatterns = [
-#     path(' ', include(router.urls)),
-# ]

@@ -199,3 +199,24 @@ class SaveSerializer(serializers.ModelSerializer):
         request = self.context.get('request')
         validated_data['user'] = request.user.profile
         return super().create(validated_data)
+
+class ShareSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Share
+        fields = ['id', 'user', 'picture_post',]
+        read_only_fields = ['user']
+
+    def to_representation(self,instance):
+        request = self.context.get('request')
+        rep = super().to_representation(instance)
+
+        # when call a serializer into another serializer should also pass the request
+        rep['user'] = ProfileSerializer(instance.user, context={'request':request}).data
+        rep['picture_post'] = MidjernyImageserializer(instance.picture_post, context={'request':request}).data
+        return rep
+
+    def create(self, validated_data):
+        request = self.context.get('request')
+        validated_data['user'] = request.user.profile
+        return super().create(validated_data)
+
